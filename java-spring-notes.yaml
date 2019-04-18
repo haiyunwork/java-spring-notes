@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: java-notes-service
+spec:
+  type: NodePort
+  selector:
+    app: bot-engine
+  ports:
+    - protocol: TCP
+      port: 8080
+      nodePort: 30001
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: java-notes-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: java-notes
+    spec:
+      containers:
+      - name: java-notes-controller
+        image: java-notes:20180809-092203
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 1
+          successThreshold: 10
+        resources:
+          requests:
+            memory: "768Mi"
+            cpu: "200m"
+          limits:
+            memory: "768Mi"
+            cpu: "200m"

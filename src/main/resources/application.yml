@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: k8s
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+logging:
+  level:
+    root: info
+    com.haizhi: info
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %level %logger{36}@%method:%line - %msg%n"
+
+---
+
+spring:
+  profiles: dev
+
+---
+spring:
+  profiles: k8s
