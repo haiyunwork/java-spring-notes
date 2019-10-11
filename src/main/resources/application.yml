@@ -8,7 +8,6 @@ spring:
 logging:
   level:
     root: info
-    com.haizhi: info
   pattern:
     console: "[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %level %logger{36}@%method:%line - %msg%n"
 
